@@ -5,7 +5,7 @@ import "github.com/Nutdat/logger/core"
 var logger *core.Logger
 
 func init() {
-	core.NewLogger("./data/log/")
+	logger = core.NewLogger("./data/log/")
 }
 
 func Cleanup(days int) {
@@ -22,4 +22,16 @@ func Warn(msg string) {
 
 func Error(msg string) {
 	logger.LogError("ERROR", msg)
+}
+
+func Fatal(msg string) {
+	logger.LogError("FATAL", msg)
+}
+
+func Console(module, msg string) {
+	core.LogtoConsole(module, msg)
+}
+
+func LogInit(module, msg string) {
+	core.LogInitMessage(module, msg)
 }

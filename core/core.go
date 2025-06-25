@@ -31,7 +31,7 @@ func NewLogger(logDir string) *Logger {
 	}
 
 	// Log that logger started
-	logger.LogError(INFO, "Logger started")
+	LogInitMessage("INIT", "Logger successfully initialized")
 
 	return logger
 }
