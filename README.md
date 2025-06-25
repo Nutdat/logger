@@ -1,4 +1,4 @@
-# 📝 Nutdat Logger
+# 📝 Nut Logger
 
 A simple, colorful logging library for Go — logs to files and console.
 
