@@ -10,7 +10,7 @@ func (l *Logger) LogError(logType LogType, errorMessage string) {
 	now := time.Now()
 	logLine := fmt.Sprintf("[%s] [%s] %s\n", now.Format("2006-01-02 15:04:05"), logType, errorMessage)
 
-	success := l.writeLogToFile(logLine)
+	success := l.writeLogToFile(string(logType), logLine)
 	if !success {
 		l.addToMemoryBuffer(logLine)
 	}

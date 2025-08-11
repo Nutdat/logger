@@ -9,9 +9,10 @@ import (
 
 // writeLogToFile attempts to append a log line to current monthly log file.
 // Returns true on success, false otherwise.
-func (l *Logger) writeLogToFile(logLine string) bool {
+
+func (l *Logger) writeLogToFile(logLevel, logLine string) bool {
 	now := time.Now()
-	filename := fmt.Sprintf("error_%d_%02d.log", now.Year(), now.Month())
+	filename := fmt.Sprintf("%s_%d_%02d.log", logLevel, now.Year(), now.Month())
 	filePath := filepath.Join(l.logDir, filename)
 
 	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

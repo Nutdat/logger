@@ -1,9 +1,7 @@
 package logger
 
 import (
-	"fmt"
 	"github.com/Nutdat/logger/core"
-	"os"
 )
 
 // logger is the internal instance of the core.Logger used by this package.
@@ -12,7 +10,7 @@ var logger *core.Logger
 // init initializes the default logger instance with a log directory.
 // It is automatically called when the package is imported.
 func init() {
-	logger = core.NewLogger("./data/log/")
+	logger = core.NewLogger("./.Nutdat/log/")
 }
 
 // Cleanup removes log files older than the specified number of days.
@@ -74,11 +72,9 @@ func LogInit(module, msg string) {
 	core.LogInitMessage(module, msg)
 }
 
+// RecoverAndFlush recovers the error
 func RecoverAndFlush() {
 	if r := recover(); r != nil {
-		// Hier kannst du z.B. Logs flushen
-		fmt.Printf("Panic abgefangen: %v\n", r)
 		logger.Flush()
-		os.Exit(1)
 	}
 }
