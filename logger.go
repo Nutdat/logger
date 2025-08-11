@@ -1,6 +1,10 @@
 package logger
 
-import "github.com/Nutdat/logger/core"
+import (
+	"fmt"
+	"github.com/Nutdat/logger/core"
+	"os"
+)
 
 // logger is the internal instance of the core.Logger used by this package.
 var logger *core.Logger
@@ -68,4 +72,13 @@ func Console(module, msg string) {
 //   - msg: descriptive message about the init process.
 func LogInit(module, msg string) {
 	core.LogInitMessage(module, msg)
+}
+
+func RecoverAndFlush() {
+	if r := recover(); r != nil {
+		// Hier kannst du z.B. Logs flushen
+		fmt.Printf("Panic abgefangen: %v\n", r)
+		logger.Flush()
+		os.Exit(1)
+	}
 }

@@ -18,12 +18,13 @@ type Logger struct {
 
 func NewLogger(logDir string) *Logger {
 	if logDir == "" {
-		logDir = "./data/log/"
+		logDir = "./data/logs/"
 	}
 
 	logger := &Logger{logDir: logDir}
 
 	err := os.MkdirAll(logDir, os.ModePerm)
+	fmt.Println(err)
 	if err != nil {
 		logLine := fmt.Sprintf("[%s] [%s] Failed to create log directory: %v\n",
 			time.Now().Format("2006-01-02 15:04:05"), ERROR, err)
