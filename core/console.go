@@ -77,20 +77,20 @@ func LogtoConsole(module, message string) {
 }
 
 // LogInitMessage logs a message with a dark yellow module tag and dark gray message.
-func LogInitMessage(module, message string) {
+func LogInitMessage(module string) {
 	const (
 		colorReset     = "\033[0m"
 		colorDarkGray  = "\033[90m"
 		colorTimestamp = "\033[36m" // cyan
 		colorModule    = "\033[97m" // white
 	)
-
+	message := module + " successfully initialized"
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 
 	formatted := fmt.Sprintf(
 		"%s[%s]%s %s[%s]%s %s%s%s\n",
 		colorTimestamp, timestamp, colorReset,
-		colorModule, module, colorReset,
+		colorModule, "INIT", colorReset,
 		colorDarkGray, message, colorReset,
 	)
 

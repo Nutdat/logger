@@ -67,9 +67,8 @@ func Console(module, msg string) {
 //
 // Parameters:
 //   - module: name of the module or package being initialized.
-//   - msg: descriptive message about the init process.
-func LogInit(module, msg string) {
-	core.LogInitMessage(module, msg)
+func LogInit(module string) {
+	core.LogInitMessage(module)
 }
 
 // RecoverAndFlush recovers the error
