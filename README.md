@@ -43,6 +43,11 @@ logger.Console("SQL", "SELECT * FROM users")
 ```go
 logger.LogInit("INIT", "Cache initialized")
 ```
+## JSON Print
+
+```go
+logger.PrettyPrintJSON(interface)
+```
 
 ### clean up all old logs
 
