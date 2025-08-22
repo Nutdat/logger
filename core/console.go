@@ -1,7 +1,10 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -95,4 +98,71 @@ func LogInitMessage(module string) {
 	)
 
 	fmt.Print(formatted)
+}
+
+func PrettyPrintJSON(v interface{}) {
+	// Erst JSON erzeugen
+	b, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		fmt.Printf("Fehler beim Marshallen: %v\n", err)
+		return
+	}
+
+	// Dann wieder nach interface{} parsen
+	var data interface{}
+	if err := json.Unmarshal(b, &data); err != nil {
+		fmt.Printf("Fehler beim Unmarshallen: %v\n", err)
+		return
+	}
+
+	printColored(data, 0)
+	fmt.Println()
+}
+
+func printColored(v interface{}, indent int) {
+	const (
+		reset   = "\033[0m"
+		green   = "\033[32m" // Numbers
+		cyan    = "\033[36m" // Keys
+		yellow  = "\033[33m" // Bool/Null
+		magenta = "\033[35m" // Strings
+	)
+	ind := strings.Repeat("  ", indent)
+
+	switch val := v.(type) {
+	case map[string]interface{}:
+		fmt.Println("{")
+		i := 0
+		for k, vv := range val {
+			fmt.Print(ind + "  " + cyan + `"` + k + `"` + reset + ": ")
+			printColored(vv, indent+1)
+			i++
+			if i < len(val) {
+				fmt.Print(",")
+			}
+			fmt.Println()
+		}
+		fmt.Print(ind + "}")
+	case []interface{}:
+		fmt.Println("[")
+		for i, vv := range val {
+			fmt.Print(ind + "  ")
+			printColored(vv, indent+1)
+			if i < len(val)-1 {
+				fmt.Print(",")
+			}
+			fmt.Println()
+		}
+		fmt.Print(ind + "]")
+	case string:
+		fmt.Print(magenta + strconv.Quote(val) + reset)
+	case float64:
+		fmt.Print(green + fmt.Sprintf("%v", val) + reset)
+	case bool:
+		fmt.Print(yellow + fmt.Sprintf("%v", val) + reset)
+	case nil:
+		fmt.Print(yellow + "null" + reset)
+	default:
+		fmt.Print(fmt.Sprintf("%v", val))
+	}
 }

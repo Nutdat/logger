@@ -70,6 +70,9 @@ func Console(module, msg string) {
 func LogInit(module string) {
 	core.LogInitMessage(module)
 }
+func PrettyPrintJSON(v interface{}) {
+	core.PrettyPrintJSON(v)
+}
 
 // RecoverAndFlush recovers the error
 func RecoverAndFlush() {
